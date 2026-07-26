@@ -25,7 +25,6 @@ const Login = () => {
     setIsLoading(true);
     try{
       const response = await axios.post(serverUrl + '/api/auth/login', {
-        name,
         email,
         password
       }, { withCredentials: true });

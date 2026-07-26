@@ -6,6 +6,8 @@ import sentenceRouter from './routes/sentenceRoute.js';
 import paragraphRouter from './routes/paragraphRoute.js';
 import authRouter from './routes/authRoute.js';
 import userRouter from './routes/userRoute.js';
+import chatRouter from './routes/chatRoute.js';
+import messageRouter from './routes/messageRoute.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
@@ -30,6 +32,8 @@ app.use('/api/user', userRouter);
 app.use('/api/words', wordRouter);
 app.use('/api/sentences', sentenceRouter);
 app.use('/api/paragraphs', paragraphRouter);
+app.use('/api/chat', chatRouter);
+app.use('/api/messages', messageRouter);
 
 
 

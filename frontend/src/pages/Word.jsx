@@ -41,6 +41,11 @@ function Word() {
             });
             setMatchedWord(response.data);
             setFeedback('');
+
+            // Update student progress: increment words learned
+            await axios.post(`${API_BASE_URL}/api/user/progress`, {
+                wordsLearned: 1
+            }, { withCredentials: true });
         } catch (err) {
             console.error('Error matching word:', err);
             setFeedback('Word not found. Please try another word.');
@@ -80,10 +85,21 @@ function Word() {
 
     const checkAnswer = (selectedHindi) => {
         if (selectedHindi === currentQuizWord.hindi) {
-            setScore(score + 1);
+            const newScore = score + 1;
+            setScore(newScore);
             setFeedback('Correct! 🎉');
+
+            // Record correct answer, update quizzes taken and high score
+            axios.post(`${API_BASE_URL}/api/user/progress`, {
+                quizzesTaken: 1,
+                quizHighScore: newScore
+            }, { withCredentials: true }).catch(err => console.error('Error updating progress:', err));
         } else {
             setFeedback(`Incorrect. The correct answer was: ${currentQuizWord.hindi}`);
+            // Record quiz taken
+            axios.post(`${API_BASE_URL}/api/user/progress`, {
+                quizzesTaken: 1
+            }, { withCredentials: true }).catch(err => console.error('Error updating progress:', err));
         }
         
         setTimeout(() => {
