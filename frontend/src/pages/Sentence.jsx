@@ -42,12 +42,24 @@ function Sentence() {
 
   const handleCheckTranslation = () => {
     if (!currentSentence) return;
-    setIsCorrect(userTranslation.toLowerCase().trim() === currentSentence.english.toLowerCase().trim());
+    const correct = userTranslation.toLowerCase().trim() === currentSentence.english.toLowerCase().trim();
+    setIsCorrect(correct);
+    if (correct) {
+      axios.post(`${API_BASE_URL}/api/user/progress`, {
+        sentencesCompleted: 1
+      }, { withCredentials: true }).catch(err => console.error('Error updating progress:', err));
+    }
   };
 
   const handleCheckArrangement = () => {
     if (!currentSentence) return;
-    setIsCorrect(userArrangement.toLowerCase().trim() === currentSentence.english.toLowerCase().trim());
+    const correct = userArrangement.toLowerCase().trim() === currentSentence.english.toLowerCase().trim();
+    setIsCorrect(correct);
+    if (correct) {
+      axios.post(`${API_BASE_URL}/api/user/progress`, {
+        sentencesCompleted: 1
+      }, { withCredentials: true }).catch(err => console.error('Error updating progress:', err));
+    }
   };
 
   const handleNextSentence = () => {

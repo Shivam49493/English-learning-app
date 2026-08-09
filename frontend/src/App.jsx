@@ -13,7 +13,9 @@ import Login from './pages/Login.jsx'
 import Word from './pages/Word.jsx'
 import Sentence from './pages/Sentence.jsx'
 import Paragraph from './pages/Paragraph.jsx'
+import Chat from './pages/Chat.jsx'
 import Nav from './components/Nav.jsx'
+import Chatbot from './components/Chatbot.jsx'
 
 function App() {
    let {userData} = useContext(userDataContext);
@@ -23,6 +25,7 @@ function App() {
   return (
     <>
     {userData && <Nav />}
+    {userData && <Chatbot />}
     <Routes>
       <Route path="/login" element={userData ? <Navigate to={location.state?.from || "/"} /> : <Login />} />
       <Route path="/" element={userData ? <Home /> : <Navigate to="/login" state={{ from: location.pathname }} />} />
@@ -30,6 +33,7 @@ function App() {
       <Route path="/sentence" element={userData ? <Sentence /> : <Navigate to="/login" state={{ from: location.pathname }} />} />
       <Route path="/paragraph" element={userData ? <Paragraph/> : <Navigate to="/login" state={{ from: location.pathname }} />} />
       <Route path="/progress" element={userData ? <User/> : <Navigate to="/login" state={{ from: location.pathname }} />} />
+      <Route path="/chat" element={userData ? <Chat/> : <Navigate to="/login" state={{ from: location.pathname }} />} />
       
       <Route path="/register" element={<Register />} />
     </Routes>

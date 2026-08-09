@@ -10,7 +10,6 @@ const Nav = () => {
   const { userData,logout } = useContext(userDataContext);
   
   const [showProfile, setShowProfile] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
 
 
@@ -48,6 +47,12 @@ const Nav = () => {
               onClick={() => navigate('/paragraph')}
             >
               Paragraph
+            </button>
+            <button
+              className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              onClick={() => navigate('/chat')}
+            >
+              Chat
             </button>
             
           </div>

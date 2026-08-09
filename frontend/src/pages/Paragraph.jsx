@@ -15,6 +15,14 @@ function Paragraph() {
         fetchParagraphs();
     }, []);
 
+    useEffect(() => {
+        if (currentParagraph) {
+            axios.post(`${API_BASE_URL}/api/user/progress`, {
+                paragraphsRead: 1
+            }, { withCredentials: true }).catch(err => console.error('Error updating progress:', err));
+        }
+    }, [currentParagraph]);
+
     const fetchParagraphs = async () => {
         try {
             setIsLoading(true);
@@ -52,6 +60,11 @@ function Paragraph() {
             total: currentParagraph.exercises.length,
             percentage: Math.round((correct / currentParagraph.exercises.length) * 100)
         });
+
+        // Update student progress: increment exercises completed
+        axios.post(`${API_BASE_URL}/api/user/progress`, {
+            exercisesCompleted: 1
+        }, { withCredentials: true }).catch(err => console.error('Error updating progress:', err));
     };
 
     const handleNextParagraph = () => {
